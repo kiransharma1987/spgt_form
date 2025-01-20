@@ -10,10 +10,15 @@ const Home: React.FC = () => {
 
             <Link to="/form" style={{ textDecoration: 'none' }}>
                 <Button variant="contained" color="primary">
-                    Link
+                    Add seve
                 </Button>
             </Link>
 
+            <Link to="/view-all" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" color="primary">
+                     View all
+                </Button>
+            </Link>
 
         </div>
     )
