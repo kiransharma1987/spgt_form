@@ -12,6 +12,8 @@ interface InputFieldProps {
     control: any;
     type: string;
     errors: any;
+    disabled?:boolean;
+    required?:boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -19,17 +21,22 @@ const InputField: React.FC<InputFieldProps> = ({
     label,
     control,
     type,
+    disabled,
+    required,
     errors,
 }) => (
     <Controller
         name={name}
         control={control}
         defaultValue=""
+        disabled={disabled}
+        rules={{required:required}}
         render={({ field }) => (
             <TextField
                 {...field}
                 label={label}
                 fullWidth 
+                required={required}
                 type={type}
                 variant="outlined"
                 error={!!errors[name]}

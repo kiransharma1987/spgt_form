@@ -1,44 +1,88 @@
-import {  Button, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm, } from "react-hook-form";
 import AutocompleteField from "./react-hook-form-mui/AutocompleteField";
 import InputField from "./react-hook-form-mui/InputField";
 import DatePickerField from "./react-hook-form-mui/DatePickerField";
-import { getAllSeve, Referential, ReferentialObject } from "../api/seveService";
+import { getAllSeve, Referential, ReferentialObject, saveSeveDetails } from "../api/seveService";
 
+
+export interface SeveForm {
+    id?:string;
+    name: string;
+    email: string;
+    phoneNumber: string;
+    gotra: string;
+    nakshatra: string;
+    rashi: string;
+    seve: string;
+    scheduled_date: string;
+    amount: string;
+    other_gotra?: string;
+    other_nakshatra?: string;
+    other_seve?: string;
+}
 const Form: React.FC = () => {
+
+
 
     const {
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm();
+        watch,
+        setValue
+    } = useForm<SeveForm>();
 
     const [referential, setReferential] = useState<Referential>()
 
 
-    const getOptionsForReferential =(obj:ReferentialObject[]|undefined) =>{
-        if(obj){
-            return obj.map(x=>x.name)
+    const getOptionsForReferential = (obj: ReferentialObject[] | undefined) => {
+        if (obj) {
+            return obj.map(x => x.name)
         }
         return []
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getAllSeve()
-        .then(data=>setReferential(data))
-    },[])
+            .then(data => setReferential(data))
+    }, [])
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = (data: SeveForm) => {
+        const payload = Object.keys(data).reduce((acc: SeveForm, key) => {
+            const typedKey = key as keyof SeveForm; // Assert the key type
+
+            if (typedKey.startsWith('other_') && data[typedKey]) {
+                acc[typedKey.split("other_")[1] as keyof SeveForm] = data[typedKey] as string; // Ensure value is a string
+            } else if (!typedKey.startsWith('other_')) {
+                acc[typedKey] = data[typedKey] as string; // Ensure value is a string
+            }
+            return acc;
+        }, {} as SeveForm);
+
+        console.log(payload);
+        saveSeveDetails(payload)
     };
+
+
+    const seve = watch('seve')
+
+    const getSeveAmount = (seve: string) => {
+        return referential?.seves.find(x => x.name === seve)?.amount;
+    }
+
+    useEffect(() => {
+        console.log(seve, 'ddd')
+        setValue('amount', getSeveAmount(seve) as string)
+    }, [seve])
 
     return (
         <div className="container d-flex justify-content-center">
             <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
                 <Stack width={500} spacing={2}>
 
-        <div className="text-center head">Add new Seve</div>
+                    <div className="text-center head">Add new Seve</div>
 
                     <div >
                         <InputField name="name" type="text" label="Name" control={control} errors={errors} />
@@ -52,27 +96,27 @@ const Form: React.FC = () => {
                     </div>
 
                     <div>
-                        <AutocompleteField name="gotra" label="Gothra" control={control} options={getOptionsForReferential(referential?.gothras)} errors={errors} isOthersEnabled ={true}/>
+                        <AutocompleteField name="gotra" label="Gothra" control={control} options={getOptionsForReferential(referential?.gothras)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="nakshatra" label="Nakshatra" control={control} options={getOptionsForReferential(referential?.nakshatras)} errors={errors}  isOthersEnabled ={true} />
+                        <AutocompleteField name="nakshatra" label="Nakshatra" control={control} options={getOptionsForReferential(referential?.nakshatras)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="rashi" label="Rashi" control={control} options={getOptionsForReferential(referential?.rashis)} errors={errors}  isOthersEnabled ={true} />
+                        <AutocompleteField name="rashi" label="Rashi" control={control} options={getOptionsForReferential(referential?.rashis)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="seve" label="Seve" control={control} options={getOptionsForReferential(referential?.seves)} errors={errors}  isOthersEnabled ={true} />
+                        <AutocompleteField name="seve" label="Seve" control={control} options={getOptionsForReferential(referential?.seves)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <InputField name="amount" label="Amount" type="number" control={control} errors={errors} />
+                        <InputField required={seve === 'others'} name="amount" disabled={seve !== 'others'} label="Amount" type="number" control={control} errors={errors} />
                     </div>
 
                     <div>
-                        <DatePickerField name="seveDate" label="Seve Date" control={control} errors={errors} />
+                        <DatePickerField name="scheduled_date" label="Seve Date" control={control} errors={errors} />
                     </div>
 
                     <Button type="submit" variant="contained">

@@ -1,3 +1,4 @@
+import { SeveForm } from "../components/Form";
 import apiClient from "./axios";
 
 export interface ReferentialObject{
@@ -22,6 +23,11 @@ export const getAllSeve = async () :Promise<Referential>=>{
 
 export const getAllSeveDetails = async () :Promise<any>=>{
     const response = await apiClient.get<any>('/seve/view_all_seves');
+    return response.data;
+}
+
+export const saveSeveDetails = async (payload:SeveForm) :Promise<SeveForm>=>{
+    const response = await apiClient.post<SeveForm>('/seve/submit',payload);
     return response.data;
 }
 

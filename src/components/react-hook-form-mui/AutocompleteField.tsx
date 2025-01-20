@@ -49,8 +49,9 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
 
       {isOthersEnabled && isOtherSelected && (
         <Controller
-          name={'other_'+name} 
+          name={'other_'+name}
           control={control}
+          defaultValue=""
           rules={{
             required: `Please specify your ${label}`,
           }}
@@ -58,6 +59,7 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
             <TextField
               {...field}
               label={`Please specify your ${label}`}
+              required
               error={!!errors[name]}
               helperText={errors[name]?.message as string}
               fullWidth
