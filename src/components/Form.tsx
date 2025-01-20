@@ -52,12 +52,12 @@ const Form: React.FC = () => {
     const onSubmit = (data: SeveForm) => {
         console.log(data,'ddd')
         const payload = Object.keys(data).reduce((acc: SeveForm, key) => {
-            const typedKey = key as keyof SeveForm; // Assert the key type
+            const typedKey = key as keyof SeveForm; 
 
             if (typedKey.startsWith('other_') && data[typedKey]) {
-                acc[typedKey.split("other_")[1] as keyof SeveForm] = data[typedKey] as string; // Ensure value is a string
+                acc[typedKey.split("other_")[1] as keyof SeveForm] = data[typedKey] as string; 
             } else if (!typedKey.startsWith('other_')) {
-                acc[typedKey] = data[typedKey] as string; // Ensure value is a string
+                acc[typedKey] = data[typedKey] as string;
             }
             return acc;
         }, {} as SeveForm);
