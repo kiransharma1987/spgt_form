@@ -20,3 +20,8 @@ export const getAllSeve = async () :Promise<Referential>=>{
     return response.data;
 }
 
+export const getAllSeveDetails = async () :Promise<any>=>{
+    const response = await apiClient.get<any>('/seve/view_all_seves');
+    return response.data;
+}
+
