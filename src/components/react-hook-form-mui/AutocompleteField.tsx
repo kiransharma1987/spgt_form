@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 interface AutocompleteFieldProps {
   name: string;
   label: string;
   options: string[];
-  control: any;
+  control:  Control<any>;
   errors: any;
   isOthersEnabled:boolean;
 }
@@ -20,6 +20,12 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
   isOthersEnabled
 }) => {
   const [isOtherSelected, setIsOtherSelected] = useState(false);
+  
+  useEffect(()=>{
+    if(!isOtherSelected){
+      control.unregister('other_'+name)
+    }
+  },[isOtherSelected])
 
   return (
     <>

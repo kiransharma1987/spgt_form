@@ -11,14 +11,14 @@ export interface SeveForm {
     id?:string;
     name: string;
     email: string;
-    phoneNumber: string;
-    gotra: string;
+    mobile: string;
+    gothra: string;
     nakshatra: string;
     rashi: string;
     seve: string;
     scheduled_date: string;
     amount: string;
-    other_gotra?: string;
+    other_gothra?: string;
     other_nakshatra?: string;
     other_seve?: string;
 }
@@ -50,6 +50,7 @@ const Form: React.FC = () => {
     }, [])
 
     const onSubmit = (data: SeveForm) => {
+        console.log(data,'ddd')
         const payload = Object.keys(data).reduce((acc: SeveForm, key) => {
             const typedKey = key as keyof SeveForm; // Assert the key type
 
@@ -69,7 +70,7 @@ const Form: React.FC = () => {
     const seve = watch('seve')
 
     const getSeveAmount = (seve: string) => {
-        return referential?.seves.find(x => x.name === seve)?.amount;
+        return referential?.seves.find(x => x.name === seve)?.amount?.toString();
     }
 
     useEffect(() => {
@@ -92,11 +93,11 @@ const Form: React.FC = () => {
                     </div>
 
                     <div >
-                        <InputField name="phoneNumber" type="number" label="Phone number" control={control} errors={errors} />
+                        <InputField name="mobile" type="number" label="Phone number" control={control} errors={errors} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="gotra" label="Gothra" control={control} options={getOptionsForReferential(referential?.gothras)} errors={errors} isOthersEnabled={true} />
+                        <AutocompleteField name="gothra" label="Gothra" control={control} options={getOptionsForReferential(referential?.gothras)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
