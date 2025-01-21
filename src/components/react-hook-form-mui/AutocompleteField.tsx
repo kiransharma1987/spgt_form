@@ -9,12 +9,14 @@ interface AutocompleteFieldProps {
   control:  Control<any>;
   errors: any;
   isOthersEnabled:boolean;
+  required?:boolean;
 }
 
 const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
   name,
   label,
   options,
+  required,
   control,
   errors,
   isOthersEnabled
@@ -27,11 +29,16 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
     }
   },[isOtherSelected])
 
+useEffect(()=>{
+console.log(errors,'ssfff')
+},[errors])
+
   return (
     <>
       <Controller
         name={name}
         control={control}
+        rules={{required:required && "This field is mandatory"}}
         defaultValue=""
         render={({ field }) => (
           <Autocomplete
@@ -45,6 +52,7 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
               <TextField
                 {...params}
                 label={label}
+                slotProps={{inputLabel:{required:required}}}
                 error={!!errors[name]}
                 helperText={errors[name]?.message as string}
               />
@@ -65,7 +73,7 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
             <TextField
               {...field}
               label={`Please specify your ${label}`}
-              required
+              slotProps={{inputLabel:{required:required}}}
               error={!!errors[name]}
               helperText={errors[name]?.message as string}
               fullWidth

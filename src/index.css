@@ -17,3 +17,7 @@ code {
   font-size: 24px;
   font-weight: 500;
 }
+
+.MuiFormLabel-asterisk{
+  color: red;
+}

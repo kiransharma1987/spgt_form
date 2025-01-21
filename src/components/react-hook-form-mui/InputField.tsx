@@ -29,14 +29,14 @@ const InputField: React.FC<InputFieldProps> = ({
         name={name}
         control={control}
         defaultValue=""
-        rules={{required:required}}
+        rules={{required:required && "This field is mandatory"}}
         render={({ field }) => (
             <TextField
                 {...field}
                 label={label}
                 fullWidth 
                 disabled={disabled}
-                required={required}
+                slotProps={{inputLabel:{required:required}}}
                 type={type}
                 variant="outlined"
                 error={!!errors[name]}

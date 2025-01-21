@@ -50,7 +50,7 @@ const Form: React.FC = () => {
     }, [])
 
     const onSubmit = (data: SeveForm) => {
-        console.log(data,'ddd')
+        console.log(data,errors,'ddd')
         const payload = Object.keys(data).reduce((acc: SeveForm, key) => {
             const typedKey = key as keyof SeveForm; 
 
@@ -86,30 +86,30 @@ const Form: React.FC = () => {
                     <div className="text-center head">Add new Seve</div>
 
                     <div >
-                        <InputField name="name" type="text" label="Name" control={control} errors={errors} />
+                        <InputField name="name" required type="text" label="Name" control={control} errors={errors} />
                     </div>
                     <div >
-                        <InputField name="email" type="email" label="Email" control={control} errors={errors} />
+                        <InputField name="email"  type="email" label="Email" control={control} errors={errors} />
                     </div>
 
                     <div >
-                        <InputField name="mobile" type="number" label="Phone number" control={control} errors={errors} />
+                        <InputField name="mobile" required type="number" label="Phone number" control={control} errors={errors} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="gothra" label="Gothra" control={control} options={getOptionsForReferential(referential?.gothras)} errors={errors} isOthersEnabled={true} />
+                        <AutocompleteField name="gothra" required label="Gothra" control={control} options={getOptionsForReferential(referential?.gothras)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="nakshatra" label="Nakshatra" control={control} options={getOptionsForReferential(referential?.nakshatras)} errors={errors} isOthersEnabled={true} />
+                        <AutocompleteField name="nakshatra" required label="Nakshatra" control={control} options={getOptionsForReferential(referential?.nakshatras)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="rashi" label="Rashi" control={control} options={getOptionsForReferential(referential?.rashis)} errors={errors} isOthersEnabled={true} />
+                        <AutocompleteField name="rashi" required label="Rashi" control={control} options={getOptionsForReferential(referential?.rashis)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
-                        <AutocompleteField name="seve" label="Seve" control={control} options={getOptionsForReferential(referential?.seves)} errors={errors} isOthersEnabled={true} />
+                        <AutocompleteField name="seve" required label="Seve" control={control} options={getOptionsForReferential(referential?.seves)} errors={errors} isOthersEnabled={true} />
                     </div>
 
                     <div>
@@ -117,7 +117,7 @@ const Form: React.FC = () => {
                     </div>
 
                     <div>
-                        <DatePickerField name="scheduled_date" label="Seve Date" control={control} errors={errors} />
+                        <DatePickerField name="scheduled_date" required label="Seve Date" control={control} errors={errors} />
                     </div>
 
                     <Button type="submit" variant="contained">
