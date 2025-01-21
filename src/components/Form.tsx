@@ -5,7 +5,7 @@ import AutocompleteField from "./react-hook-form-mui/AutocompleteField";
 import InputField from "./react-hook-form-mui/InputField";
 import DatePickerField from "./react-hook-form-mui/DatePickerField";
 import { getAllSeve, Referential, ReferentialObject, saveSeveDetails } from "../api/seveService";
-
+import { toast } from 'react-toastify';
 
 export interface SeveForm {
     id?:string;
@@ -50,7 +50,8 @@ const Form: React.FC = () => {
     }, [])
 
     const onSubmit = (data: SeveForm) => {
-        console.log(data,errors,'ddd')
+
+        console.log(errors,'hiii')
         const payload = Object.keys(data).reduce((acc: SeveForm, key) => {
             const typedKey = key as keyof SeveForm; 
 
@@ -62,8 +63,13 @@ const Form: React.FC = () => {
             return acc;
         }, {} as SeveForm);
 
-        console.log(payload);
         saveSeveDetails(payload)
+        .then((data)=> {
+            if(data.status){
+                toast.success("Seve created successfully")
+            }
+        })
+        .catch(()=>toast.error("Failed to create a seve"))
     };
 
 
@@ -74,7 +80,6 @@ const Form: React.FC = () => {
     }
 
     useEffect(() => {
-        console.log(seve, 'ddd')
         setValue('amount', getSeveAmount(seve) as string)
     }, [seve])
 

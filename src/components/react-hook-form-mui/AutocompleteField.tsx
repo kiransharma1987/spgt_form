@@ -29,9 +29,6 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
     }
   },[isOtherSelected])
 
-useEffect(()=>{
-console.log(errors,'ssfff')
-},[errors])
 
   return (
     <>

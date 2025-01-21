@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { SeveForm } from "../components/Form";
 import apiClient from "./axios";
 
@@ -26,8 +27,8 @@ export const getAllSeveDetails = async () :Promise<any>=>{
     return response.data;
 }
 
-export const saveSeveDetails = async (payload:SeveForm) :Promise<SeveForm>=>{
+export const saveSeveDetails = async (payload:SeveForm) :Promise<AxiosResponse<SeveForm, any>>=>{
     const response = await apiClient.post<SeveForm>('/seve/submit',payload);
-    return response.data;
+    return response;
 }
 

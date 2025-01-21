@@ -9,20 +9,20 @@ const ViewAllSeve :React.FC = ()=>{
 
     // Column Definitions: Defines the columns to be displayed.
     const colDefs:ColDef<any>[] =[
-        { field: "name" },
-        { field: "email" },
-        { field: "mobile" },
-        { field: "gothra" },
-        { field: "nakshatra" },
-        { field: "rashi" },
-        { field: "seve" },
-        { field: "amount" },
-        { field: "scheduled_date" }
+        { field: "name", filter: true },
+        { field: "email", filter: true },
+        { field: "mobile", filter: true },
+        { field: "gothra", filter: true },
+        { field: "nakshatra" , filter: true},
+        { field: "rashi" , filter: true},
+        { field: "seve" , filter: true},
+        { field: "amount" , filter: true},
+        { field: "scheduled_date", filter: true }
     ] ;
 
     useEffect(()=>{
         getAllSeveDetails()
-        .then(data=>{console.log(data)
+        .then(data=>{
             setRowData(data.seves)
         })
     },[])
