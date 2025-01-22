@@ -3,7 +3,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 const apiClient: AxiosInstance = axios.create({
   baseURL: "http://88.222.215.55:8080/api", 
   headers: {
-    "Content-Type": "application/json", // Default headers
+    "Content-Type": "application/json",
+    "sender-device":"web"
   },
 });
 

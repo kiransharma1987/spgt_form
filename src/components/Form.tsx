@@ -98,7 +98,7 @@ const Form: React.FC = () => {
                     </div>
 
                     <div >
-                        <InputField name="mobile" required type="number" label="Phone number" control={control} errors={errors} />
+                        <InputField name="mobile" maxLength={10} required type="number" label="Phone number" control={control} errors={errors} />
                     </div>
 
                     <div>

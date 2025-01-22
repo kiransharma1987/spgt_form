@@ -36,7 +36,6 @@ const ViewAllSeve :React.FC = ()=>{
                 columnDefs={colDefs}
         />
 
-
         </div>
     )
 

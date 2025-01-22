@@ -12,8 +12,9 @@ interface InputFieldProps {
     control: any;
     type: string;
     errors: any;
-    disabled?:boolean;
-    required?:boolean;
+    disabled?: boolean;
+    required?: boolean;
+    maxLength?:number;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -24,19 +25,25 @@ const InputField: React.FC<InputFieldProps> = ({
     disabled,
     required,
     errors,
+    maxLength
 }) => (
     <Controller
         name={name}
         control={control}
         defaultValue=""
-        rules={{required:required && "This field is mandatory"}}
+        rules={{
+            required: required && "This field is mandatory", maxLength: maxLength ? {
+                value: maxLength,
+                message: "Phone number is not valid",
+            } : undefined
+        }}
         render={({ field }) => (
             <TextField
                 {...field}
                 label={label}
-                fullWidth 
+                fullWidth
                 disabled={disabled}
-                slotProps={{inputLabel:{required:required}}}
+                slotProps={{ inputLabel: { required: required } }}
                 type={type}
                 variant="outlined"
                 error={!!errors[name]}
