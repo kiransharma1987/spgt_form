@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/spgt_form/static/css/main.3e15725f.css",
+    "main.js": "/spgt_form/static/js/main.a6019556.js",
+    "index.html": "/spgt_form/index.html",
+    "main.3e15725f.css.map": "/spgt_form/static/css/main.3e15725f.css.map",
+    "main.a6019556.js.map": "/spgt_form/static/js/main.a6019556.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3e15725f.css",
+    "static/js/main.a6019556.js"
+  ]
+}
