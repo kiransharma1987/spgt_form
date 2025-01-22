@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { SeveForm } from "../components/Form";
+import { SeveForm } from "../routes/Form";
 import apiClient from "./axios";
 
 export interface ReferentialObject{
@@ -17,7 +17,7 @@ export interface Referential {
     seves:ReferentialObject[];
 }
 
-export const getAllSeve = async () :Promise<Referential>=>{
+export const getAllReferential = async () :Promise<Referential>=>{
     const response = await apiClient.get<Referential>('/auth/seve');
     return response.data;
 }

@@ -12,8 +12,6 @@ const root = ReactDOM.createRoot(
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 root.render(
-  <React.StrictMode>
     <App/>
-    </React.StrictMode>
 );
 

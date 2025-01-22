@@ -1,10 +1,10 @@
 import { Button, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm, } from "react-hook-form";
-import AutocompleteField from "./react-hook-form-mui/AutocompleteField";
-import InputField from "./react-hook-form-mui/InputField";
-import DatePickerField from "./react-hook-form-mui/DatePickerField";
-import { getAllSeve, Referential, ReferentialObject, saveSeveDetails } from "../api/seveService";
+import AutocompleteField from "../components/react-hook-form-mui/AutocompleteField";
+import InputField from "../components/react-hook-form-mui/InputField";
+import DatePickerField from "../components/react-hook-form-mui/DatePickerField";
+import { getAllReferential, Referential, ReferentialObject, saveSeveDetails } from "../api/seveService";
 import { toast } from 'react-toastify';
 
 export interface SeveForm {
@@ -23,8 +23,6 @@ export interface SeveForm {
     other_seve?: string;
 }
 const Form: React.FC = () => {
-
-
 
     const {
         handleSubmit,
@@ -45,7 +43,7 @@ const Form: React.FC = () => {
     }
 
     useEffect(() => {
-        getAllSeve()
+        getAllReferential()
             .then(data => setReferential(data))
     }, [])
 

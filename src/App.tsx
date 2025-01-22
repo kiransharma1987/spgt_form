@@ -1,8 +1,8 @@
 import React from 'react';
-import Home from './components/Home';
+import Home from './routes/Home';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import Form from './components/Form';
-import ViewAllSeve from './components/ViewAllSeve';
+import Form from './routes/Form';
+import ViewAllSeve from './routes/ViewAllSeve';
 import { ToastContainer } from 'react-toastify';
 
 const App:React.FC =()=> {
