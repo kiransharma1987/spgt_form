@@ -6,6 +6,7 @@ import InputField from "../components/react-hook-form-mui/InputField";
 import DatePickerField from "../components/react-hook-form-mui/DatePickerField";
 import { getAllReferential, Referential, ReferentialObject, saveSeveDetails } from "../api/seveService";
 import { toast } from 'react-toastify';
+import PreviewScreen from "../components/PreviewScreen";
 
 export interface SeveForm {
     id?:string;
@@ -33,6 +34,8 @@ const Form: React.FC = () => {
     } = useForm<SeveForm>();
 
     const [referential, setReferential] = useState<Referential>()
+
+    const [isPreview,setPreview]=useState(false)
 
 
     const getOptionsForReferential = (obj: ReferentialObject[] | undefined) => {
@@ -83,6 +86,7 @@ const Form: React.FC = () => {
 
     return (
         <div className="container d-flex justify-content-center">
+            {!isPreview?
             <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
                 <Stack width={500} spacing={2}>
 
@@ -96,7 +100,7 @@ const Form: React.FC = () => {
                     </div>
 
                     <div >
-                        <InputField name="mobile" maxLength={10} required type="number" label="Phone number" control={control} errors={errors} />
+                        <InputField name="mobile" required type="number" label="Phone number" control={control} errors={errors} pattern={{ value: /^[6-9]\d{9}$/ ,  message: 'Invalid phone number format'}} />
                     </div>
 
                     <div>
@@ -127,7 +131,7 @@ const Form: React.FC = () => {
                         Submit
                     </Button>
                 </Stack>
-            </form>
+            </form> : <PreviewScreen /> }
         </div>
     );
 };

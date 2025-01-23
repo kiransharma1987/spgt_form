@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AgGridReact } from 'ag-grid-react';
 import { ColDef } from "ag-grid-community";
 import { getAllReferential, getAllSeveDetails, Referential } from "../api/seveService";
@@ -12,6 +12,8 @@ const ViewAllSeve: React.FC = () => {
         handleSubmit,
         control,
     } = useForm();
+
+    const gridRef = useRef<AgGridReact>(null)
 
     const [referential, setReferential] = useState<Referential>()
 
@@ -50,6 +52,13 @@ const ViewAllSeve: React.FC = () => {
         console.log(data)
     }
 
+    const exportGrid = useCallback(() => {
+        if(gridRef.current){
+            gridRef.current.api.exportDataAsCsv();
+
+        }
+      }, []);
+
     return (
         <div className="container">
 
@@ -69,12 +78,16 @@ const ViewAllSeve: React.FC = () => {
                 <div className="col align-self-center">
                     <Button type="submit" variant="contained">Filter</Button>
                 </div>
+                <div className="col align-self-center">
+                    <Button onClick={exportGrid} type="submit" color="success" variant="contained">Export data</Button>
+                </div>
 
             </form>
 
             <div style={{ height: 500 }}>
 
                 <AgGridReact
+                ref={gridRef}
                     rowData={rowData}
                     columnDefs={colDefs}
                 />

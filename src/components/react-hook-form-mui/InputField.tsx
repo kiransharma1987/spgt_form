@@ -4,7 +4,7 @@
 
 
 import { TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
+import { Controller, ValidationRule } from "react-hook-form";
 
 interface InputFieldProps {
     name: string;
@@ -15,6 +15,7 @@ interface InputFieldProps {
     disabled?: boolean;
     required?: boolean;
     maxLength?:number;
+    pattern?: ValidationRule<RegExp> 
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -24,6 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
     type,
     disabled,
     required,
+    pattern,
     errors,
     maxLength
 }) => (
@@ -32,10 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
         control={control}
         defaultValue=""
         rules={{
-            required: required && "This field is mandatory", maxLength: maxLength ? {
-                value: maxLength,
-                message: "Phone number is not valid",
-            } : undefined
+            required: required && "This field is mandatory", pattern: pattern,
         }}
         render={({ field }) => (
             <TextField
