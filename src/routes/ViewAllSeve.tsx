@@ -21,6 +21,8 @@ const ViewAllSeve: React.FC = () => {
 
     const [rowData, setRowData] = useState([]);
 
+    const [seves, setSeves] = useState([])
+
     // Column Definitions: Defines the columns to be displayed.
     const colDefs: ColDef<any>[] = [
         { field: "bill_num", filter: true },
@@ -43,6 +45,16 @@ const ViewAllSeve: React.FC = () => {
         getAllSeveDetails()
             .then(data => {
                 setRowData(data.seves)
+                const seves = data.seves.reduce((acc: string[], val: any) => {
+                    if (val.seve && !acc.includes(val.seve)) {
+                        acc.push(val.seve)
+                    }
+                    return acc
+                }, [])
+
+                setSeves(seves)
+
+                console.log(seves, 's')
                 setSeveData(data.seves)
             })
 
@@ -50,15 +62,25 @@ const ViewAllSeve: React.FC = () => {
     }, [])
 
     const onSubmit = (data: any) => {
-        console.log(data)
+        let filters = seveData;
+        if(data.seve){
+           filters =  filters.filter((x: any) => x.seve === data.seve)
+        }
+        if(data.scheduled_date){
+            filters =  filters.filter((x: any) => {
+              return x.scheduled_date === data.scheduled_date
+            })
+        }
+        setRowData(filters)
+
     }
 
     const exportGrid = useCallback(() => {
-        if(gridRef.current){
+        if (gridRef.current) {
             gridRef.current.api.exportDataAsCsv();
 
         }
-      }, []);
+    }, []);
 
     return (
         <div className="container">
@@ -69,11 +91,11 @@ const ViewAllSeve: React.FC = () => {
 
 
                 <div className="col-4">
-                    <AutocompleteField name="seve" label="Seve" control={control} options={referential?.seves.map(x => x.name) || []} errors={{}} isOthersEnabled={false} />
+                    <AutocompleteField name="seve" label="Seve" control={control} options={seves} errors={{}} isOthersEnabled={false} />
 
                 </div>
                 <div className="col-4">
-                    <DatePickerField name="scheduled_date" required label="Seve Date" control={control} />
+                    <DatePickerField name="scheduled_date" label="Seve Date" control={control} />
                 </div>
 
                 <div className="col align-self-center">
@@ -85,10 +107,10 @@ const ViewAllSeve: React.FC = () => {
 
             </form>
 
-            <div style={{ height: 500 }}>
+            <div style={{ height: 600 }}>
 
                 <AgGridReact
-                ref={gridRef}
+                    ref={gridRef}
                     rowData={rowData}
                     columnDefs={colDefs}
                 />

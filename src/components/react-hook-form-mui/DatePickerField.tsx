@@ -30,7 +30,7 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({
                 <DatePicker
                     {...field}
                     label={label}
-                    format="DD/MM/YYYY"
+                    format="DD-MM-YYYY"
                     slotProps={{
                         textField: {
                             fullWidth: true,
@@ -41,9 +41,9 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({
                             },
                         }
                     }}
-                    value={field.value ? dayjs(field.value, "DD/MM/YYYY") : null} // Ensure value is a Dayjs object or null
+                    value={field.value ? dayjs(field.value, "DD-MM-YYYY") : null} // Ensure value is a Dayjs object or null
                     onChange={(date) => {
-                        field.onChange(date ? dayjs(date).format("DD/MM/YYYY") : null); // Convert to string before storing in state
+                        field.onChange(date ? dayjs(date).format("DD-MM-YYYY") : null); // Convert to string before storing in state
                     }}
                 />
             </LocalizationProvider>

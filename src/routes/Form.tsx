@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import PreviewScreen from "../components/PreviewScreen";
 
 export interface SeveForm {
-    id?:string;
+    bill_num?:string;
     name: string;
     email: string;
     mobile: string;
@@ -30,12 +30,12 @@ const Form: React.FC = () => {
         control,
         formState: { errors },
         watch,
-        setValue
+        setValue, reset
     } = useForm<SeveForm>();
 
     const [referential, setReferential] = useState<Referential>()
 
-    const [isPreview,setPreview]=useState(false)
+    const [previewData,setPreviewData]=useState<SeveForm>()
 
 
     const getOptionsForReferential = (obj: ReferentialObject[] | undefined) => {
@@ -67,6 +67,7 @@ const Form: React.FC = () => {
         saveSeveDetails(payload)
         .then((data)=> {
             if(data.status){
+                setPreviewData(data.data)
                 toast.success("Seve created successfully")
             }
         })
@@ -75,6 +76,11 @@ const Form: React.FC = () => {
 
 
     const seve = watch('seve')
+
+    const goBack = ()=>{
+        setPreviewData(undefined)
+        reset()
+    }
 
     const getSeveAmount = (seve: string) => {
         return referential?.seves.find(x => x.name === seve)?.amount?.toString();
@@ -86,7 +92,7 @@ const Form: React.FC = () => {
 
     return (
         <div className="container d-flex justify-content-center">
-            {!isPreview?
+            {!previewData?
             <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
                 <Stack width={500} spacing={2}>
 
@@ -131,7 +137,7 @@ const Form: React.FC = () => {
                         Submit
                     </Button>
                 </Stack>
-            </form> : <PreviewScreen /> }
+            </form> : <PreviewScreen {...previewData} goBack={goBack} /> }
         </div>
     );
 };
