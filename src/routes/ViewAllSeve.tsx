@@ -23,6 +23,7 @@ const ViewAllSeve: React.FC = () => {
 
     // Column Definitions: Defines the columns to be displayed.
     const colDefs: ColDef<any>[] = [
+        { field: "bill_num", filter: true },
         { field: "name", filter: true },
         { field: "email", filter: true },
         { field: "mobile", filter: true },
