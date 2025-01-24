@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import AutocompleteField from "../components/react-hook-form-mui/AutocompleteField";
 import DatePickerField from "../components/react-hook-form-mui/DatePickerField";
 import Button from "@mui/material/Button";
+import { SeveForm } from "./Form";
+import PreviewScreen from "../components/PreviewScreen";
 const ViewAllSeve: React.FC = () => {
     const {
         handleSubmit,
@@ -14,7 +16,10 @@ const ViewAllSeve: React.FC = () => {
     } = useForm();
 
     const gridRef = useRef<AgGridReact>(null)
-
+    const [previewData,setPreviewData]=useState<SeveForm>()
+    const goBack = ()=>{
+        setPreviewData(undefined)
+    }
     const [referential, setReferential] = useState<Referential>()
 
     const [seveData, setSeveData] = useState([])
@@ -75,6 +80,11 @@ const ViewAllSeve: React.FC = () => {
 
     }
 
+    const previewSeve = (event:any)=>{
+        console.log(event,'dds')
+        setPreviewData(event.data)
+    }
+
     const exportGrid = useCallback(() => {
         if (gridRef.current) {
             gridRef.current.api.exportDataAsCsv();
@@ -83,10 +93,11 @@ const ViewAllSeve: React.FC = () => {
     }, []);
 
     return (
+        
+    
         <div className="container">
-
-
-
+ {!previewData?
+            <div className="grid-layout">
             <form onSubmit={handleSubmit(onSubmit)} className="row my-3">
 
 
@@ -113,9 +124,11 @@ const ViewAllSeve: React.FC = () => {
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={colDefs}
+                    onRowDoubleClicked={previewSeve}
                 />
 
             </div>
+            </div> : <PreviewScreen goBack={goBack} {...previewData} /> }
         </div>
 
     )

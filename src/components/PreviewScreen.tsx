@@ -9,6 +9,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import logo from '../imgs/logo.png'; // Import the logo image
+import { ArrowBack } from "@mui/icons-material";
 
 
 const PreviewScreen: React.FC<any> = (props: any) => {
@@ -107,14 +108,16 @@ const PreviewScreen: React.FC<any> = (props: any) => {
                     </Card>
                 </div>
 
-                <Stack className="col-4 my-3"   direction="row"  spacing={2} >
-                    <Button  variant="contained" color="secondary" endIcon={<PictureAsPdfIcon />} onClick={downloadPdf}>Download PDF</Button>
-                    <Button  variant="contained"  color="success" onClick={goBack} endIcon={<AddIcon />}  >
-                        Add New Seve
+                <Stack className="col-5 my-3 justify-content-center"   direction="row"  spacing={3} >
+                <Button  variant="outlined"  color="info" onClick={goBack} startIcon={<ArrowBack />}  >
+                        Go Back
                     </Button>
+
                     <Link  to="/home" style={{ textDecoration: 'none' }}>
-                        <Button variant="contained" endIcon={<HomeIcon />}>Go Home</Button>
+                        <Button variant="outlined" color="secondary" endIcon={<HomeIcon />}>Go Home</Button>
                     </Link>
+                    <Button  variant="outlined" color="error" endIcon={<PictureAsPdfIcon />} onClick={downloadPdf}>Download PDF</Button>
+             
 
                 </Stack>
 
