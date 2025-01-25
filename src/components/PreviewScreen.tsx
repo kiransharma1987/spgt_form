@@ -113,7 +113,7 @@ const PreviewScreen: React.FC<any> = (props: any) => {
                         Go Back
                     </Button>
 
-                    <Link  to="/home" style={{ textDecoration: 'none' }}>
+                    <Link  to="/" style={{ textDecoration: 'none' }}>
                         <Button variant="outlined" color="secondary" endIcon={<HomeIcon />}>Go Home</Button>
                     </Link>
                     <Button  variant="outlined" color="error" endIcon={<PictureAsPdfIcon />} onClick={downloadPdf}>Download PDF</Button>
