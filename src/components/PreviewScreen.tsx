@@ -20,28 +20,37 @@ const PreviewScreen: React.FC<any> = (props: any) => {
         const input = document.getElementById('seveCard') as HTMLElement;
         const canvas = await html2canvas(input);
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, 'PNG', 10, 10, canvas.width / 4, canvas.height / 4);
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'px',
+            format: [canvas.width / 2, canvas.height / 2], // Adjust based on the scaled canvas
+        });
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = canvas.width / 2;
+    const imgHeight = canvas.height / 2;
+
+    const x = (pdfWidth - imgWidth) / 2;
+    const y = (pdfHeight - imgHeight) / 2; 
+    pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
         pdf.save('sampleCard.pdf')
     };
     return (
-        <div className="container">
-            <div className="row flex-column justify-content-center align-items-center">
-                <div id="seveCard" className="col-5">
+            <div className="row flex-column align-items-center">
+                <div id="seveCard" className="col-4">
 
-                    <div className="d-flex justify-content-center">
+                    <div className="row justify-content-center">
                         <img
                             src={logo} 
                             alt="Temple Logo"
-                            
                             style={{
                                 width: '250px',
                             }}
                         />
                     </div>
 
-                    <Card  >
-                        <CardContent className="p-4">
+                    <Card className="justify-content-center" sx={{boxShadow:4}}>
+                        <CardContent className="p-5">
                             <Grid container rowSpacing={2}>
                                 <Grid size={6}>
                                     <div className="field-head">Bill Number:</div>
@@ -111,7 +120,7 @@ const PreviewScreen: React.FC<any> = (props: any) => {
                 <Stack className="col-5 my-3 justify-content-center"   direction="row"  spacing={3} >
                 <Button  variant="outlined"  color="info" onClick={goBack} startIcon={<ArrowBack />}  >
                         Go Back
-                    </Button>
+                </Button>
 
                     <Link  to="/" style={{ textDecoration: 'none' }}>
                         <Button variant="outlined" color="secondary" endIcon={<HomeIcon />}>Go Home</Button>
@@ -123,9 +132,6 @@ const PreviewScreen: React.FC<any> = (props: any) => {
 
             </div>
 
-
-
-        </div>
     )
 
 }
