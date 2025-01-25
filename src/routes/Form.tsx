@@ -102,7 +102,7 @@ const Form: React.FC = () => {
                         <InputField name="name" required type="text" label="Name" control={control} errors={errors} />
                     </div>
                     <div >
-                        <InputField name="email"  type="email" label="Email" control={control} errors={errors} />
+                        <InputField name="email"  type="email" label="Email" control={control} pattern= {{value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,message: "invalid email address"}} errors={errors} />
                     </div>
 
                     <div >
