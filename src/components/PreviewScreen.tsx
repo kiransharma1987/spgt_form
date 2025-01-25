@@ -25,7 +25,7 @@ const PreviewScreen: React.FC<any> = (props: any) => {
             unit: 'px',
             format: [canvas.width / 2, canvas.height / 2], // Adjust based on the scaled canvas
         });
-        const pdfWidth = pdf.internal.pageSize.getWidth();
+     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
     const imgWidth = canvas.width / 2;
     const imgHeight = canvas.height / 2;
@@ -44,13 +44,13 @@ const PreviewScreen: React.FC<any> = (props: any) => {
                             src={logo} 
                             alt="Temple Logo"
                             style={{
-                                width: '250px',
+                                width: '225px',
                             }}
                         />
                     </div>
 
-                    <Card className="justify-content-center" sx={{boxShadow:4}}>
-                        <CardContent className="p-5">
+                    <Card sx={{boxShadow:4}}>
+                        <CardContent className="p-4">
                             <Grid container rowSpacing={2}>
                                 <Grid size={6}>
                                     <div className="field-head">Bill Number:</div>
